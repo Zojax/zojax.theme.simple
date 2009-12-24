@@ -1,0 +1,3 @@
+<div id="portal-footer">
+  <tal:block content="structure pageelement:footer" />
+</div>

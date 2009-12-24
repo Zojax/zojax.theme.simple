@@ -1,0 +1,142 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.theme.simple">
+
+  <interface
+     name="zojax.theme.simple"
+     interface=".interfaces.ISkin"
+     type="zope.publisher.interfaces.browser.IBrowserSkinType" />
+
+  <!-- page layout -->
+  <zojax:layout
+     name="page"
+     title="Page"
+     uid="zojax.simple.page"
+     for="zope.app.component.interfaces.ISite"
+     description="Page layout. It contains html headers, html body, etc."
+     template="layoutpage.pt"
+     layer=".interfaces.ISkinLayer"
+     class=".layoutpage.LayoutPage" />
+
+  <!-- portal layout -->
+  <zojax:layout
+     name="portal"
+     title="Portal"
+     layout="page"
+     uid="zojax.simple.portal"
+     for="zope.app.component.interfaces.ISite"
+     description="Portal layout for 'simple' theme"
+     template="layoutportal.pt"
+     layer=".interfaces.ISkinLayer" />
+
+  <!-- viewspace layout -->
+  <zojax:layout
+     name="viewspace"
+     title="Viewspace"
+     layout="workspace"
+     uid="zojax.simple.viewspace"
+     description="Viewpsace layout."
+     for="zope.app.component.interfaces.ISite"
+     template="layoutviewspace.pt"
+     layer=".interfaces.ISkinLayer" />
+
+  <!-- space layout -->
+  <zojax:layout
+     name="space"
+     layout="portal"
+     template="spacelayout.pt"
+     for="zojax.content.space.interfaces.IContentSpace"
+     class="zojax.content.space.browser.layout.SpaceLayout"
+     layer=".interfaces.ISkinLayer" />
+
+  <zojax:layout
+     name="workspace"
+     layout="space"
+     template="spacelayoutworkspace.pt"
+     for="zojax.content.space.interfaces.IContentSpace"
+     class="zojax.content.space.browser.layout.WorkspaceLayout"
+     layer=".interfaces.ISkinLayer" />
+
+<!-- html header elements -->
+  <zojax:pageelement
+     name="page.headers"
+     template="pageheaders.pt"
+     provides=".interfaces.IPageHeaders"
+     layer=".interfaces.ISkinLayer" />
+
+  <!-- portal elements -->
+  <zojax:pageelement
+     name="portal.header"
+     template="portalheader.pt"
+     layer=".interfaces.ISkinLayer" />
+
+  <zojax:pageelement
+   name="portal.footer"
+   template="portalfooter.pt"
+   class=".portalfooter.PortalFooter"
+   layer=".interfaces.ISkinLayer" />
+
+
+  <!-- default logo -->
+  <zojax:resource
+     name="logo.png"
+     file="resources/images/logo-empty.png"
+     layer=".interfaces.ISkinLayer" />
+
+  <zojax:pageelement
+     title="Header: Portal Logo"
+     name="portal.logo"
+     template="portallogo.pt"
+     layer=".interfaces.ISkinLayer"
+     weight="50" />
+
+  <!-- default favicon -->
+<!--
+  <zojax:resource
+     name="favicon.ico"
+     file="resources/images/favicon.ico"
+     layer=".interfaces.ISkinLayer" />
+-->
+
+  <zojax:resourcedirectory
+     name="zojax-theme-simple-styles"
+     directory="resources/styles"
+     layer=".interfaces.ISkinLayer"
+     mapping=".css:zrt" />
+
+  <!-- custom styles -->
+  <zojax:resourcepackage
+     type="stylesheet"
+     name="zojax-simple.css"
+     title="simple theme stylesheets"
+     cache="dymanic"
+     library="zojax-simple"
+     layer=".interfaces.ISkinLayer">
+
+    <resource path="zojax-theme-simple-styles/base.css" media="all" />
+    <resource path="zojax-theme-simple-styles/styles.css" media="all" />
+
+  </zojax:resourcepackage>
+
+  <zojax:resourcedirectory
+     name="images"
+     directory="resources/images"
+     layer=".interfaces.ISkinLayer" />
+
+  <zojax:resourcedirectory
+     name="javascripts"
+     directory="resources/javascripts"
+     layer=".interfaces.ISkinLayer" />
+
+  <!-- skintool -->
+  <include file="skintool.zcml" />
+  <!-- cssregistry -->
+  <include file="cssregistry.zcml" />
+
+  <include package=".portaltabs" />
+  <include package=".portlets" />
+  <include package=".personalbar" />
+
+</configure>

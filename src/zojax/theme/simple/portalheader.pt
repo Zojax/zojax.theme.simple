@@ -1,0 +1,13 @@
+<div id="z-portal-top">
+
+  <div id="z-portal-header">
+    <tal:block tal:content="structure pageelement:portal.logo" />
+  </div>
+
+  <tal:block content="structure pageelement:portal.tabs" />
+
+  <tal:block tal:content="structure pageelement:portal.personalbar" />
+
+  <div class="visualClear"><!-- --></div>
+
+</div>

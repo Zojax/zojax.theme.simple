@@ -1,0 +1,181 @@
+/* zrt-cssregistry: */
+/*
+Table of context
+----------------
+BASIC STYLES
+STRUCTURE STYLES
+HEADER STYLES
+PORTLETS STYLES
+CONTENT STYLES
+EDIT PAGES STYLES
+FOOTER STYLES
+*/
+
+
+/*
+** BASIC STYLES
+*/
+
+a:link {
+  text-decoration: underline;
+}
+a:hover {
+  color: #b22222;
+  text-decoration: underline;
+}
+img {
+  vertical-align: top;
+  border: 0;
+}
+th {
+  vertical-align: top;
+  font-weight: bold;
+}
+td {
+  vertical-align: top;
+}
+.visualClear {
+  display: block;
+  clear: both;
+}
+
+
+/*
+** STRUCTRE STYLES
+*/
+
+#visual-portal-wrapper {
+  margin: 0 auto;
+  width: 708px;
+}
+#z-portal-workspace {
+  margin-left: 55px;
+}
+#portal-columns {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+#portal-column-one {
+  width: 15em;
+}
+#portal-column-two {
+  width: 15em;
+}
+#portal-column-one .visualPadding {
+  padding: 0 1em 0 0;
+}
+
+
+/*
+** PORTAL HEADER
+*/
+
+#z-portal-top {
+  margin: 0 0 20px 0;
+}
+
+/* logo */
+
+#z-portal-logo {
+  float: left;
+  margin: 17px 0 0 10px;
+  padding: 0;
+  background-color: #fff;
+}
+
+/* globalnav */
+
+#portal-globalnav {
+  display: block;
+  margin: 0 0 0 130px;
+  padding: 16px 0 11px 0;
+  line-height: 1em;
+  list-style: none;
+  list-style-image: none;
+  border-bottom: 1px solid #00aeef;
+}
+#portal-globalnav li {
+  display: inline;
+  margin: 0;
+  padding: 0 1.5em 0 0.5em;
+  font-weight: bold;
+  font-size: 1.3em;
+  text-transform: lowercase;
+}
+#portal-globalnav li a {
+  color: #00aeef;
+  text-decoration: none;
+}
+#portal-globalnav li a:hover {
+  color: #000;
+}
+#portal-globalnav li.selected a {
+  color: #000;
+}
+
+/* personalbar */
+
+.z-personalbar {
+  margin: 0 0 0 135px;
+  background-color: transparent;
+  border: 0;
+}
+
+
+/*
+** CONTENT STYLES
+*/
+
+#z-content {
+  min-height: 400px;
+}
+#space-column-content .z-portlet-header,
+.z-content-title {
+  margin: 0.5em 0;
+  padding: 0;
+  font: normal 29px headingFontFamily!important;
+  color: #00aeef;
+  background-color: transparent;
+  border: 0;
+}
+.context-actions {
+  margin-top: 7px;
+}
+#z-ws-profile .z-ws-profile-quickinfo .quickinfo-title {
+  white-space: normal;
+}
+
+
+/*
+** PORTLETS STYLES
+*/
+
+.a2a_dd img {
+  width: 120px;
+  height: 13px;
+}
+
+/*
+** FOOTER STYLES
+*/
+
+#portal-footer {
+  margin: 3em 0 0 0;
+  padding: 0 0 1em 0;
+  color: #808080;
+  text-align: center;
+  font-size: 0.9em;
+}
+#portal-footer p {
+  margin: 0;
+  line-height: 1.6em;
+}
+#portal-footer a {
+  color: gray;
+  text-decoration: none;
+  border-bottom: 1px dotted gray;
+}
+#portal-footer a:hover {
+  color: #b22222;
+}

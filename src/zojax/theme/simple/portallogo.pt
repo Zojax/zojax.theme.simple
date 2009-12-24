@@ -1,0 +1,5 @@
+<div id="z-portal-logo" tal:define="site modules/zope.app.component.hooks/getSite">
+  <a href="#" name="top" tal:attributes="href string:${site/@@absolute_url}/">
+    <img tal:attributes="src context/++resource++logo.png" alt="" />
+  </a>
+</div>

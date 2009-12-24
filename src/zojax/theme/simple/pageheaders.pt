@@ -1,0 +1,18 @@
+<meta name="generator" content="zojax - http://zojax.net" />
+<tal:block tal:content="structure pageelement:page.metatags" />
+
+<tal:block content="structure pageelement:portal.favicon" />
+
+<tal:block tal:define="dummy resourcepackage:zojax" />
+<tal:block tal:define="dummy resourcepackage:zojaxdefault" />
+<!--<tal:block tal:define="dummy resourcepackage:zojax-custom" />-->
+<tal:block tal:define="dummy resourcepackage:jquery-plugins" />
+
+<style type="text/css" media="all"
+       tal:define="path context/++resource++zojax-simple.css"
+       tal:content="string:@import url($path);"></style>
+
+<!-- Disable IE6 image toolbar -->
+<meta http-equiv="imagetoolbar" content="no" />
+
+<tal:block tal:define="dummy resourcepackage:jquery-plugins" />

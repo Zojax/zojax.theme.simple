@@ -1,0 +1,9 @@
+<tal:block tal:content="context/zojax:name" />
+<tal:block tal:content="context/zojax:title" />
+<tal:block tal:content="context/zojax:description" />
+<tal:block tal:content="context/zojax:created" />
+<tal:block tal:content="context/zojax:modified" />
+<tal:block tal:content="context/zojax:title_or_name" />
+<tal:block tal:content="context/zojax:size" />
+<tal:block tal:content="context/zojax:site" />
+<tal:block tal:content="context/zojax:siteUrl" />

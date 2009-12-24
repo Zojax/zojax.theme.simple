@@ -1,0 +1,63 @@
+==========
+Exceptions
+==========
+
+    >>> from zope import component, interface
+    >>> from zope.testbrowser.testing import Browser
+    >>> from zope.app.testing.functional import getRootFolder
+    >>> from zojax.skintool.interfaces import ISkinable
+    
+    >>> root = getRootFolder()
+    >>> interface.alsoProvides(root, ISkinable)
+
+    >>> admin = Browser()
+    >>> admin.handleErrors = False
+    >>> admin.addHeader("Authorization", "Basic mgr:mgrpw")
+    >>> admin.open("http://localhost/settings/")
+    >>> admin.getLink('Portal skin').click()
+    >>> admin.getControl(name='skin').value = ['zojax']
+    >>> admin.getControl('Save').click()
+
+
+NotFound
+--------
+
+    >>> actor = Browser()
+    >>> try:
+    ...     actor.open("http://localhost/unknown")
+    ... except:
+    ...     pass
+
+    >>> print actor.contents
+    <!DOCTYPE html PUBLIC
+    ...
+    <h3>
+       The page that you are trying to access is not available
+    </h3>
+    <br /> 
+    <b>Please note the following:</b>
+    <br />
+    <ol>
+       <li>You might have misspelled the url</li>
+       <li>You might be trying to access a non-existing page</li>
+    </ol>
+    ...
+    </html>
+
+
+Unauthorized
+------------
+
+    >>> actor = Browser()
+    >>> try:
+    ...     actor.open("http://localhost/settings/")
+    ... except:
+    ...     pass
+    
+    >>> print actor.contents
+    <!DOCTYPE html PUBLIC...
+    ...
+    <h1>Unauthorized</h1>
+    <p>You are not authorized</p>
+    ...
+    </html>

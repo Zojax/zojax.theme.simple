@@ -1,0 +1,7 @@
+<ul id="portal-globalnav" tal:define="tabs view/tabs">
+  <li tal:repeat="tab tabs"
+      tal:attributes="class python:tab.isSelected() and 'selected' or ''">
+      <a tal:attributes="href tab/url"
+         tal:content="tab/title" />
+  </li>
+</ul>

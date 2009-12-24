@@ -1,0 +1,178 @@
+==========
+friendly theme skin
+==========
+
+    >>> from zope import component, interface
+    >>> from zope.testbrowser.testing import Browser
+    >>> from zope.app.testing.functional import getRootFolder
+    >>> from zope.app.intid import IntIds
+    >>> from zope.app.intid.interfaces import IIntIds
+    >>> from zojax.skintool.interfaces import ISkinable
+    >>> from zojax.extensions.interfaces import IExtensible
+
+    >>> root = getRootFolder()
+    >>> interface.alsoProvides(root, ISkinable, IExtensible)
+    >>> root['intid'] = IntIds()
+    >>> component.provideUtility(root['intid'], IIntIds)
+
+    >>> admin = Browser()
+    >>> admin.handleErrors = False
+    >>> admin.addHeader("Authorization", "Basic mgr:mgrpw")
+
+Check skin in 'Portal Skin' configlet.
+
+    >>> admin.open("http://localhost/settings/")
+    >>> admin.getLink('Portal skin').click()
+
+Rotterdam skin
+
+    >>> print admin.contents
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+          lang="en">
+      <head>
+        <link rel="stylesheet" type="text/css" href="http://localhost/@@/zojax.css" />
+        <title>Z3: settings</title>
+        <style type="text/css" media="all">@import url(http://localhost/@@/zope3_tablelayout.css);</style>
+    ...
+    </html>
+
+Change to friendly theme skin
+
+    >>> admin.getControl(name='skin').value = ['zojax.theme.simple']
+    >>> admin.getControl('Save').click()
+    >>> admin.reload()
+    >>> print admin.contents
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html>
+      <head url="http://localhost/settings/ui/portalskin/index.html/"
+            base="http://localhost/settings/ui/portalskin/"
+            portal="http://localhost/">
+        <base href="http://localhost/settings/ui/portalskin/index.html" />
+        <title>
+            Portal skin - top
+        </title>
+    <link rel="stylesheet" type="text/css" href="http://localhost/@@/zojax.css" />
+    <link rel="shortcut icon"
+          href="http://localhost/@@/favicon.gif" />
+    <meta name="generator" content="zojax - http://zojax.net" />
+    ...
+    </html>
+
+
+Layout with columns
+
+    >>> actor = Browser()
+    >>> actor.handleErrors = False
+    >>> actor.addHeader("Authorization", "Basic mgr:mgrpw")
+
+    >>> actor.open("http://localhost/test.html")
+    >>> '<div id="z-portal-columns">' in actor.contents
+    False
+
+Without portlets in left/right columns, show only central column.
+
+    >>> admin.getControl(name='layers:list').value = ['zojax-columns']
+    >>> admin.getControl('Save').click()
+
+    >>> actor.reload()
+    >>> print actor.contents
+    <!DOCTYPE html PUBLIC
+    ...
+    <div id="z-portal-columns">
+      <table id="z-columns-container" cellspacing="0" cellpadding="0">
+        <tr>
+          <td id="z-column-content">
+            ...
+          </td>
+        </tr>
+      </table>
+    </div>
+    ...
+    </html>
+
+
+Set portlets to left column.
+
+    >>> admin.open('http://localhost/++extensions++/portlets/columns.left/?form.widgets.portletIds:list=portlet1&form.buttons.save=Save&form.widgets.status=1')
+
+    >>> actor.reload()
+    >>> print actor.contents
+    <!DOCTYPE html PUBLIC
+    ...
+    <div id="z-portal-columns">
+      <table id="z-columns-container" cellspacing="0" cellpadding="0">
+        <tr>
+          <td id="z-column-one">
+            <div class="z-column-wrapper">
+              <h1>Portlet 1</h1>
+              <div>Portlet1 body</div>
+            </div>
+          </td>
+          <td id="z-column-content">
+          ...
+          </td>
+        </tr>
+      </table>
+    </div>
+    ...
+    </html>
+
+
+Show both columns
+
+    >>> admin.open('http://localhost/++extensions++/portlets/columns.right/?form.widgets.portletIds:list=portlet2&form.buttons.save=Save&form.widgets.status=1')
+
+    >>> actor.reload()
+    >>> print actor.contents
+    <!DOCTYPE html PUBLIC
+    ...
+    <div id="z-portal-columns">
+      <table id="z-columns-container" cellspacing="0" cellpadding="0">
+        <tr>
+          <td id="z-column-one">
+            <div class="z-column-wrapper">
+              <h1>Portlet 1</h1>
+              <div>Portlet1 body</div>
+            </div>
+          </td>
+          <td id="z-column-content">
+          ...
+          </td>
+          <td id="z-column-two">
+            <div class="z-column-wrapper">
+              <h1>Portlet 2</h1>
+              <div>Portlet2 body</div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    ...
+    </html>
+
+Show right column
+
+    >>> admin.open('http://localhost/++extensions++/portlets/columns.left/?form.buttons.save=Save&form.widgets.portletIds-empty-marker=1&form.widgets.status=2')
+
+    >>> actor.reload()
+    >>> print actor.contents
+    <!DOCTYPE html PUBLIC
+    ...
+    <div id="z-portal-columns">
+      <table id="z-columns-container" cellspacing="0" cellpadding="0">
+        <tr>
+          <td id="z-column-content">
+          ...
+          </td>
+          <td id="z-column-two">
+            <div class="z-column-wrapper">
+              <h1>Portlet 2</h1>
+              <div>Portlet2 body</div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    ...
+    </html>

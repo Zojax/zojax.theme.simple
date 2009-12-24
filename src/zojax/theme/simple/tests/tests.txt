@@ -1,0 +1,132 @@
+===========
+portal logo
+===========
+
+    >>> from datetime import datetime
+    >>> from zope import component, interface
+    >>> from zope.testbrowser.testing import Browser
+    >>> from zope.app.testing.functional import getRootFolder
+    >>> from zope.app.intid import IntIds
+    >>> from zope.app.intid.interfaces import IIntIds
+    >>> from zojax.skintool.interfaces import ISkinable
+
+    >>> root = getRootFolder()
+    >>> interface.alsoProvides(root, ISkinable)
+    >>> root['intid'] = IntIds()
+    >>> component.provideUtility(root['intid'], IIntIds)
+
+    >>> admin = Browser()
+    >>> admin.handleErrors = False
+    >>> admin.addHeader("Authorization", "Basic mgr:mgrpw")
+
+Check skin in 'Portal Skin' configlet.
+
+    >>> admin.open("http://localhost/settings/")
+    >>> admin.getLink('Portal skin').click()
+    >>> admin.getControl(name='skin').value = ['zojax.theme.simple']
+    >>> admin.getControl('Save').click()
+
+    >>> admin.open("http://localhost/test.html")
+    >>> print admin.contents
+    <!DOCTYPE html PUBLIC...
+    ...
+    <div id="z-portal-logo">
+      <a href="http://localhost/" name="top">
+         <img src="http://localhost/@@/sitelogo.gif" />
+      </a>
+    </div>
+    ...
+    </html>
+
+If root contains logo.gif or logo.jpg skin will use it.
+
+    >>> import os.path
+    >>> filePath = os.path.join(os.path.split(__file__)[0], 'logo.gif')
+
+    >>> from zojax.filefield.data import Image
+    >>> img = Image()
+    >>> img.data = open(filePath, 'rb').read()
+
+    >>> root['logo.gif'] = img
+
+    >>> admin.reload()
+    >>> print admin.contents
+    <!DOCTYPE html PUBLIC...
+    ...
+    <div id="z-portal-logo">
+      <a href="http://localhost/" name="top">
+          <img src="http://localhost/logo.gif" />
+      </a>
+    </div>
+    ...
+    </html>
+
+    >>> del root['logo.gif']
+    >>> root['logo.jpg'] = img
+
+    >>> admin.reload()
+    >>> print admin.contents
+    <!DOCTYPE html PUBLIC...
+    ...
+    <div id="z-portal-logo">
+      <a href="http://localhost/" name="top">
+          <img src="http://localhost/logo.jpg" />
+      </a>
+    </div>
+    ...
+    </html>
+
+Same with favicon.gif
+
+    >>> print admin.contents
+    <!DOCTYPE html PUBLIC...
+    ...
+    <link rel="shortcut icon"
+          href="http://localhost/@@/favicon.gif" />
+    ...
+    </html>
+
+    >>> root['favicon.gif'] = img
+    >>> admin.reload()
+    >>> print admin.contents
+    <!DOCTYPE html PUBLIC...
+    ...
+    <link rel="shortcut icon"
+          href="http://localhost/favicon.gif" />
+    ...
+    </html>
+
+Menu
+
+    >>> admin.open("http://localhost/contents.html")
+
+TalesAPI
+
+    >>> from zope.dublincore.interfaces import ICMFDublinCore
+    >>> dc = ICMFDublinCore(root)
+    >>> dc.title = u'Root'
+    >>> dc.description = u'Root Site'
+    >>> dc.created = datetime(2008, 1, 1)
+    >>> dc.modified = datetime(2008, 2, 1)
+
+    >>> admin.open("http://localhost/talesapi.html")
+    >>> print admin.contents
+    <!DOCTYPE html PUBLIC...
+    ...
+    Root
+    Root Site
+    2008-01-01 00:00:00+00:00
+    2008-02-01 00:00:00+00:00
+    Root
+    3 items
+    &lt;zope.app.folder.folder.Folder object at ...&gt;
+    http://localhost
+    ...
+    </html>
+
+Clear settings
+
+    >>> admin.open("http://localhost/settings/")
+    >>> admin.getLink('Portal skin').click()
+    >>> admin.getControl(name='skin').value = ['__no__']
+    >>> admin.getControl('Save').click()

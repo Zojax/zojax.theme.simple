@@ -1,0 +1,16 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:i18n="http://namespaces.zope.org/i18n"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.personal.bar">
+
+  <browser:viewletManager
+     name="portal.personalbar-manager"
+     provides="zojax.personal.bar.interfaces.IPersonalBar"
+     template="manager.pt"
+     class="zojax.personal.bar.manager.PersonalBar"
+     permission="zope.Public"
+     layer="..interfaces.ISkinLayer" />
+
+</configure>

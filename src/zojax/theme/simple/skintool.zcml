@@ -1,0 +1,21 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zcml="http://namespaces.zope.org/zcml"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.theme.simple">
+
+  <!-- skintool -->
+  <zcml:configure zcml:condition="installed zojax.skintool">
+    <include package="zojax.skintool" file="meta.zcml" />
+    <include package="zojax.skintool" />
+
+    <zojax:skin
+       name="zojax.theme.simple"
+       layer=".interfaces.ISkin"
+       title="zojax simple theme"
+       description="Simple Theme for zojax." />
+
+  </zcml:configure>
+
+</configure>

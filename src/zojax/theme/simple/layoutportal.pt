@@ -1,0 +1,11 @@
+<div id="visual-portal-wrapper">
+
+    <tal:block define="context nocall:maincontext" content="structure pageelement:portal.header" />
+
+    <tal:block content="structure view/render"></tal:block>
+
+    <tal:block content="structure pageelement:portal.footer" />
+
+</div>
+
+<tal:block tal:content="structure pageelement:portal.ui.googleanalytics" />

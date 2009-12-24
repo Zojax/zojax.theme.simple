@@ -1,0 +1,14 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.ui.portaltabs">
+
+  <zojax:pageelement
+     title="Portal Tabs"
+     name="portal.tabs"
+     template="portaltabs.pt"
+     class="zojax.ui.portaltabs.browser.portaltabs.PortalTabsView"
+     layer="..interfaces.ISkinLayer" />
+
+</configure>
