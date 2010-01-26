@@ -4,7 +4,7 @@
 <tal:block content="structure pageelement:portal.favicon" />
 
 <tal:block tal:define="dummy resourcepackage:zojax" />
-<tal:block tal:define="dummy resourcepackage:zojaxdefault" />
+<tal:block tal:define="dummy resourcepackage:common" />
 <!--<tal:block tal:define="dummy resourcepackage:zojax-custom" />-->
 <tal:block tal:define="dummy resourcepackage:jquery-plugins" />
 
