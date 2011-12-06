@@ -1,4 +1,4 @@
-<div class="z-personalbar" i18n:domain="zojax.personal.bar"
+<div class="z-personalbar" i18n:domain="zojax.theme.simple"
      tal:define="isAnonymous view/isAnonymous"
      tal:condition="not:isAnonymous">
   <div class="z-personalbar-menu" >

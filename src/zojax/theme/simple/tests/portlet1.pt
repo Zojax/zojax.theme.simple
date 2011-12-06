@@ -1,3 +1,3 @@
 
-<h1>Portlet 1</h1>
-<div>Portlet1 body</div>
+<h1 i18n:translate="">Portlet 1</h1>
+<div i18n:translate="">Portlet1 body</div>
